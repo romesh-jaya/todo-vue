@@ -1,5 +1,5 @@
 <template>
-  <h2>My Todos</h2>
+  <h2 class="header">My Todos</h2>
   <TodoList />
 </template>
 
@@ -32,7 +32,23 @@ export default {
 
 html,
 body {
+  padding: 0;
+  margin: 0;
   font-family: "Roboto", sans-serif;
+  height: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+p {
+  margin: 0;
 }
 
 #app {
@@ -40,6 +56,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-block-start: 60px;
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  padding-block: 60px;
+  margin: 0;
 }
 </style>

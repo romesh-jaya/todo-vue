@@ -1,5 +1,9 @@
 <template>
-  <div v-for="todo in todos" :key="todo.id"><Todo :item="todo.item" /></div>
+  <div class="container">
+    <div v-for="todo in todos" :key="todo.id">
+      <Todo :item="todo.item" />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -20,4 +24,14 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.5rem;
+  max-inline-size: 900px;
+  inline-size: 90%;
+  margin: auto;
+}
+</style>
