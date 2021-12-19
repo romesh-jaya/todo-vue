@@ -17,7 +17,7 @@ export default {
       todos: [
         { id: "111", item: "Go shopping" },
         { id: "112", item: "Bake cake" },
-        { id: "113", item: "Wash dog" },
+        { id: "113", item: "Wash dog in the outside bathroom without soap" },
       ],
     };
   },
@@ -30,7 +30,7 @@ export default {
   display: flex;
   flex-direction: column;
   row-gap: 1.5rem;
-  max-inline-size: 900px;
+  max-inline-size: 300px;
   inline-size: 90%;
   margin: auto;
 }

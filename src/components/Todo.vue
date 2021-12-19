@@ -1,5 +1,7 @@
 <template>
-  <div class="card">{{ item }}</div>
+  <div class="card">
+    <p class="text">{{ item }}</p>
+  </div>
 </template>
 
 <script>
@@ -14,11 +16,15 @@ export default {
   display: grid;
   place-items: center;
   block-size: 2rem;
-  inline-size: 20rem;
   margin: auto;
+  padding-inline: 1rem;
   border: 1px solid grey;
   background-color: antiquewhite;
   border-radius: 3px;
+}
+
+.text {
+  inline-size: 95%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

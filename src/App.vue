@@ -1,14 +1,18 @@
 <template>
   <h2 class="header">My Todos</h2>
-  <TodoList />
+  <div class="content">
+    <EditTodo />
+    <TodoList />
+  </div>
 </template>
 
 <script>
 import TodoList from "./components/TodoList.vue";
+import EditTodo from "./components/EditTodo.vue";
 
 export default {
   name: "App",
-  components: { TodoList },
+  components: { TodoList, EditTodo },
   data() {
     return {
       counter: 0,
@@ -36,6 +40,8 @@ body {
   margin: 0;
   font-family: "Roboto", sans-serif;
   height: 100%;
+  color: #2c3e50;
+  font-size: 1rem;
 }
 
 a {
@@ -55,7 +61,6 @@ p {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
   margin-block-start: 60px;
   height: 100%;
   margin: 0;
@@ -66,5 +71,15 @@ p {
 .header {
   padding-block: 60px;
   margin: 0;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  max-inline-size: 1200px;
+  inline-size: 90%;
+  margin-inline: auto;
 }
 </style>
