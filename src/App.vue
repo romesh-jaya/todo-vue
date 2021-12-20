@@ -33,7 +33,7 @@ export default {
         this.todos = newArray;
       } else {
         const maxId = Math.max(...this.todos.map((todo) => todo.id));
-        this.todos.push({ id: maxId + 1, input });
+        this.todos.push({ id: maxId + 1, item: input });
       }
     },
   },

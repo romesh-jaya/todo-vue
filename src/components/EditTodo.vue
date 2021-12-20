@@ -1,7 +1,11 @@
 <template>
   <div class="container">
     <div class="label">Add Todo</div>
-    <textarea class="input" v-model="input"></textarea>
+    <textarea
+      class="input"
+      :value="input"
+      @input="onChangeInput($event.target.value)"
+    ></textarea>
     <p class="error">{{ error }}</p>
     <button class="button" @click="onAddSaveButtonClick">Add</button>
   </div>
@@ -19,6 +23,10 @@ export default {
   },
   emits: ["add-save-button-clicked"],
   methods: {
+    onChangeInput(value) {
+      this.input = value;
+      this.error = "";
+    },
     onAddSaveButtonClick() {
       if (!this.input) {
         this.error = "Todo cannot be empty";
@@ -26,6 +34,7 @@ export default {
       }
 
       this.$emit("add-save-button-clicked", { input: this.input, id: null });
+      this.input = "";
     },
   },
 };
