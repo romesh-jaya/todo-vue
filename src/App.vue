@@ -1,8 +1,8 @@
 <template>
   <h2 class="header">My Todos</h2>
   <div class="content">
-    <EditTodo />
-    <TodoList />
+    <EditTodo @add-save-button-clicked="onAddSaveButtonClick" item="" />
+    <TodoList :todos="todos" />
   </div>
 </template>
 
@@ -15,17 +15,26 @@ export default {
   components: { TodoList, EditTodo },
   data() {
     return {
-      counter: 0,
-      labelText: "Hello Rom",
+      todos: [
+        { id: "111", item: "Go shopping" },
+        { id: "112", item: "Bake cake" },
+        { id: "113", item: "Wash dog in the outside bathroom without soap" },
+      ],
     };
   },
   methods: {
-    onButtonClick(newCount) {
-      this.counter = newCount;
-    },
-    handler(e, data) {
-      console.log("e", e);
-      console.log("data", data);
+    onAddSaveButtonClick(value) {
+      const { id, input } = value;
+      console.log("item", input);
+
+      if (id) {
+        const newArray = this.todos.filter((todo) => todo.id !== id);
+        newArray.push({ id, input });
+        this.todos = newArray;
+      } else {
+        const maxId = Math.max(...this.todos.map((todo) => todo.id));
+        this.todos.push({ id: maxId + 1, input });
+      }
     },
   },
 };
@@ -55,6 +64,10 @@ a {
 
 p {
   margin: 0;
+}
+
+button {
+  cursor: pointer;
 }
 
 #app {

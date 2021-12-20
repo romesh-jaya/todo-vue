@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <div class="label">Add Todo</div>
-    <textarea class="input"></textarea>
+    <textarea class="input" v-model="input"></textarea>
+    <p class="error">{{ error }}</p>
+    <button class="button" @click="onAddSaveButtonClick">Add</button>
   </div>
 </template>
 
@@ -9,6 +11,23 @@
 export default {
   name: "EditTodo",
   props: { item: String },
+  data() {
+    return {
+      input: "",
+      error: "",
+    };
+  },
+  emits: ["add-save-button-clicked"],
+  methods: {
+    onAddSaveButtonClick() {
+      if (!this.input) {
+        this.error = "Todo cannot be empty";
+        return;
+      }
+
+      this.$emit("add-save-button-clicked", { input: this.input, id: null });
+    },
+  },
 };
 </script>
 
@@ -27,11 +46,27 @@ export default {
   padding: 0.25rem;
   font-size: 1rem;
   font-family: inherit;
+  margin-block-end: 0.5rem;
+}
+
+.button {
+  background-color: #5959ff;
+  color: white;
+  padding-inline: 0.5rem;
+  padding-block: 0.25rem;
+  border-radius: 3px;
+  font-size: 1rem;
 }
 
 .container {
   margin: auto;
   inline-size: 90%;
   max-inline-size: 300px;
+}
+
+.error {
+  color: red;
+  font-size: 0.75rem;
+  margin-block-end: 0.5rem;
 }
 </style>
