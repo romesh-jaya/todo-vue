@@ -78,6 +78,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../styles/globals.scss";
+
 .label {
   font-size: 1.175rem;
   margin-block-end: 0.5rem;
@@ -86,7 +88,7 @@ export default {
 .input {
   block-size: 4rem;
   border: 1px solid grey;
-  background-color: lavender;
+  background-color: $lavender;
   border-radius: 3px;
   inline-size: 100%;
   padding: 0.25rem;
@@ -97,11 +99,11 @@ export default {
 
 .button-cancel {
   margin-inline-start: 0.5rem;
-  background-color: lavender;
+  background-color: $lavender;
 }
 
 .button-save {
-  background-color: #5959ff;
+  background-color: $lavender-highlight;
   color: white;
 }
 

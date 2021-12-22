@@ -19,7 +19,9 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import "../styles/globals.scss";
+
 .card {
   display: grid;
   place-items: center;
@@ -27,12 +29,12 @@ export default {
   margin: auto;
   padding-inline: 1rem;
   border: 1px solid grey;
-  background-color: antiquewhite;
+  background-color: $antique-white;
   border-radius: 3px;
 }
 
 .card-edit {
-  background-color: rgb(255, 181, 84);
+  background-color: $antique-white-highlight;
 }
 
 .text {
