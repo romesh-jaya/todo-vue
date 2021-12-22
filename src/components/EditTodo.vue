@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="label">{{ label }}</div>
+    <div class="label">{{ todoToEdit ? "Edit Todo" : "Add Todo" }}</div>
     <textarea
       class="input"
       :value="input"
@@ -10,7 +10,7 @@
     <Button
       class="button-save"
       @on-click="onAddSaveButtonClick"
-      :label="buttonName"
+      :label="todoToEdit ? 'Edit' : 'Add'"
     >
     </Button>
     <Button
@@ -26,9 +26,6 @@
 <script>
 import Button from "../common/Button.vue";
 
-const labels = Object.freeze({ ADD: "Add Todo", EDIT: "Edit Todo" });
-const buttonNames = Object.freeze({ ADD: "Add", SAVE: "Save" });
-
 export default {
   name: "EditTodo",
   props: { todoToEdit: Object },
@@ -37,8 +34,6 @@ export default {
     return {
       input: "",
       error: "",
-      label: labels.ADD,
-      buttonName: buttonNames.ADD,
     };
   },
   emits: ["on-add-save", "on-cancel-edit"],
@@ -46,8 +41,6 @@ export default {
     todoToEdit() {
       if (this.todoToEdit) {
         this.input = this.todoToEdit.item;
-        this.label = labels.EDIT;
-        this.buttonName = buttonNames.SAVE;
         this.error = "";
       }
     },
@@ -60,8 +53,6 @@ export default {
     resetForm() {
       this.error = "";
       this.input = "";
-      this.label = labels.ADD;
-      this.buttonName = buttonNames.ADD;
     },
     onAddSaveButtonClick() {
       if (!this.input) {
@@ -124,11 +115,5 @@ export default {
   color: red;
   font-size: 0.75rem;
   margin-block-end: 0.5rem;
-}
-
-@media screen and (max-width: 2600px) {
-  .error {
-    color: blue;
-  }
 }
 </style>
