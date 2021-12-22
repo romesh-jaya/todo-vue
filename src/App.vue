@@ -41,6 +41,7 @@ export default {
       const { id, item } = value;
 
       if (id) {
+        // Save edit to todo being edited
         const newArray = this.todos.map((todo) => {
           if (todo.id === id) {
             return {
@@ -52,6 +53,14 @@ export default {
           return todo;
         });
         this.todos = newArray;
+      } else {
+        // insert new todo
+        const maxId = Math.max(...this.todos.map((todo) => todo.id));
+        this.todos.push({
+          id: maxId + 1,
+          item,
+          editModeOn: false,
+        });
       }
     },
     onCancelledEdit(value) {

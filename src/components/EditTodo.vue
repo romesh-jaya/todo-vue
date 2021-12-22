@@ -7,22 +7,32 @@
       @input="onChangeInput($event.target.value)"
     ></textarea>
     <p class="error">{{ error }}</p>
-    <button class="button-save" @click="onAddSaveButtonClick">
-      {{ buttonName }}
-    </button>
-    <button class="button-cancel" @click="onCancelClick" v-if="todoToEdit">
-      Cancel Edit
-    </button>
+    <Button
+      class="button-save"
+      @on-click="onAddSaveButtonClick"
+      :label="buttonName"
+    >
+    </Button>
+    <Button
+      class="button-cancel"
+      @on-click="onCancelClick"
+      v-if="todoToEdit"
+      label="Cancel Edit"
+    >
+    </Button>
   </div>
 </template>
 
 <script>
+import Button from "../common/Button.vue";
+
 const labels = Object.freeze({ ADD: "Add Todo", EDIT: "Edit Todo" });
-const buttonNames = Object.freeze({ ADD: "Add", EDIT: "Edit" });
+const buttonNames = Object.freeze({ ADD: "Add", SAVE: "Save" });
 
 export default {
   name: "EditTodo",
   props: { todoToEdit: Object },
+  components: { Button },
   data() {
     return {
       input: "",
@@ -34,15 +44,11 @@ export default {
   emits: ["on-add-save", "on-cancel-edit"],
   watch: {
     todoToEdit() {
-      this.error = "";
       if (this.todoToEdit) {
         this.input = this.todoToEdit.item;
         this.label = labels.EDIT;
-        this.buttonName = buttonNames.EDIT;
-      } else {
-        this.input = "";
-        this.label = labels.ADD;
-        this.buttonName = buttonNames.ADD;
+        this.buttonName = buttonNames.SAVE;
+        this.error = "";
       }
     },
   },
@@ -50,6 +56,12 @@ export default {
     onChangeInput(value) {
       this.input = value;
       this.error = "";
+    },
+    resetForm() {
+      this.error = "";
+      this.input = "";
+      this.label = labels.ADD;
+      this.buttonName = buttonNames.ADD;
     },
     onAddSaveButtonClick() {
       if (!this.input) {
@@ -61,17 +73,20 @@ export default {
         item: this.input,
         id: this.todoToEdit?.id,
       });
+
+      this.resetForm();
     },
     onCancelClick() {
       this.$emit("on-cancel-edit", {
         id: this.todoToEdit?.id,
       });
+      this.resetForm();
     },
   },
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .label {
   font-size: 1.175rem;
   margin-block-end: 0.5rem;
@@ -89,24 +104,14 @@ export default {
   margin-block-end: 0.5rem;
 }
 
+.button-cancel {
+  margin-inline-start: 0.5rem;
+  background-color: lavender;
+}
+
 .button-save {
   background-color: #5959ff;
   color: white;
-  padding-inline: 0.5rem;
-  padding-block: 0.25rem;
-  border-radius: 3px;
-  font-size: 1rem;
-  border: 1px solid grey;
-}
-
-.button-cancel {
-  margin-inline-start: 0.5rem;
-  background-color: #5959ff28;
-  padding-inline: 0.5rem;
-  padding-block: 0.25rem;
-  border-radius: 3px;
-  font-size: 1rem;
-  border: 1px solid grey;
 }
 
 .container {
@@ -119,5 +124,11 @@ export default {
   color: red;
   font-size: 0.75rem;
   margin-block-end: 0.5rem;
+}
+
+@media screen and (max-width: 2600px) {
+  .error {
+    color: blue;
+  }
 }
 </style>
