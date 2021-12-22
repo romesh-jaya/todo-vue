@@ -1,27 +1,41 @@
 <template>
   <div class="container">
-    <div class="label">Add Todo</div>
+    <div class="label">{{ label }}</div>
     <textarea
       class="input"
       :value="input"
       @input="onChangeInput($event.target.value)"
     ></textarea>
     <p class="error">{{ error }}</p>
-    <button class="button" @click="onAddSaveButtonClick">Add</button>
+    <button class="button" @click="onAddSaveButtonClick">
+      {{ buttonName }}
+    </button>
   </div>
 </template>
 
 <script>
 export default {
   name: "EditTodo",
-  props: { item: String },
+  props: { todoToEdit: Object },
   data() {
     return {
       input: "",
       error: "",
+      label: "Add Todo",
+      buttonName: "Add",
     };
   },
   emits: ["add-save-button-clicked"],
+  watch: {
+    todoToEdit() {
+      if (this.todoToEdit) {
+        this.input = this.todoToEdit.item;
+        this.error = "";
+        this.label = "Edit Todo";
+        this.buttonName = "Edit";
+      }
+    },
+  },
   methods: {
     onChangeInput(value) {
       this.input = value;

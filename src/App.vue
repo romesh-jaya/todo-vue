@@ -1,7 +1,10 @@
 <template>
   <h2 class="header">My Todos</h2>
   <div class="content">
-    <EditTodo @add-save-button-clicked="onAddSaveButtonClick" item="" />
+    <EditTodo
+      @add-save-button-clicked="onAddSaveButtonClick"
+      :todo-to-edit="toDoInEditMode"
+    />
     <TodoList :todos="todos" @todo-clicked="onTodoClicked" />
   </div>
 </template>
@@ -24,7 +27,13 @@ export default {
           editModeOn: false,
         },
       ],
+      toDoInEditMode: null,
     };
+  },
+  watch: {
+    todos() {
+      this.toDoInEditMode = this.todos.find((todo) => todo.editModeOn);
+    },
   },
   methods: {
     onAddSaveButtonClick(value) {
