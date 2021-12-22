@@ -2,7 +2,8 @@
   <h2 class="header">My Todos</h2>
   <div class="content">
     <EditTodo
-      @add-save-button-clicked="onAddSaveButtonClick"
+      @on-add-save="onAddSaveButtonClick"
+      @on-cancel-edit="onCancelledEdit"
       :todo-to-edit="toDoInEditMode"
     />
     <TodoList :todos="todos" @todo-clicked="onTodoClicked" />
@@ -37,15 +38,36 @@ export default {
   },
   methods: {
     onAddSaveButtonClick(value) {
-      const { id, input } = value;
+      const { id, item } = value;
 
       if (id) {
-        const newArray = this.todos.filter((todo) => todo.id !== id);
-        newArray.push({ id, input });
+        const newArray = this.todos.map((todo) => {
+          if (todo.id === id) {
+            return {
+              id,
+              item,
+              editModeOn: false,
+            };
+          }
+          return todo;
+        });
         this.todos = newArray;
-      } else {
-        const maxId = Math.max(...this.todos.map((todo) => todo.id));
-        this.todos.push({ id: maxId + 1, item: input });
+      }
+    },
+    onCancelledEdit(value) {
+      const { id } = value;
+
+      if (id) {
+        const newArray = this.todos.map((todo) => {
+          if (todo.id === id) {
+            return {
+              ...todo,
+              editModeOn: false,
+            };
+          }
+          return todo;
+        });
+        this.todos = newArray;
       }
     },
     onTodoClicked(value) {

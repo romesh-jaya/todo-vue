@@ -7,13 +7,19 @@
       @input="onChangeInput($event.target.value)"
     ></textarea>
     <p class="error">{{ error }}</p>
-    <button class="button" @click="onAddSaveButtonClick">
+    <button class="button-save" @click="onAddSaveButtonClick">
       {{ buttonName }}
+    </button>
+    <button class="button-cancel" @click="onCancelClick" v-if="todoToEdit">
+      Cancel Edit
     </button>
   </div>
 </template>
 
 <script>
+const labels = Object.freeze({ ADD: "Add Todo", EDIT: "Edit Todo" });
+const buttonNames = Object.freeze({ ADD: "Add", EDIT: "Edit" });
+
 export default {
   name: "EditTodo",
   props: { todoToEdit: Object },
@@ -21,18 +27,22 @@ export default {
     return {
       input: "",
       error: "",
-      label: "Add Todo",
-      buttonName: "Add",
+      label: labels.ADD,
+      buttonName: buttonNames.ADD,
     };
   },
-  emits: ["add-save-button-clicked"],
+  emits: ["on-add-save", "on-cancel-edit"],
   watch: {
     todoToEdit() {
+      this.error = "";
       if (this.todoToEdit) {
         this.input = this.todoToEdit.item;
-        this.error = "";
-        this.label = "Edit Todo";
-        this.buttonName = "Edit";
+        this.label = labels.EDIT;
+        this.buttonName = buttonNames.EDIT;
+      } else {
+        this.input = "";
+        this.label = labels.ADD;
+        this.buttonName = buttonNames.ADD;
       }
     },
   },
@@ -47,8 +57,15 @@ export default {
         return;
       }
 
-      this.$emit("add-save-button-clicked", { input: this.input, id: null });
-      this.input = "";
+      this.$emit("on-add-save", {
+        item: this.input,
+        id: this.todoToEdit?.id,
+      });
+    },
+    onCancelClick() {
+      this.$emit("on-cancel-edit", {
+        id: this.todoToEdit?.id,
+      });
     },
   },
 };
@@ -72,13 +89,24 @@ export default {
   margin-block-end: 0.5rem;
 }
 
-.button {
+.button-save {
   background-color: #5959ff;
   color: white;
   padding-inline: 0.5rem;
   padding-block: 0.25rem;
   border-radius: 3px;
   font-size: 1rem;
+  border: 1px solid grey;
+}
+
+.button-cancel {
+  margin-inline-start: 0.5rem;
+  background-color: #5959ff28;
+  padding-inline: 0.5rem;
+  padding-block: 0.25rem;
+  border-radius: 3px;
+  font-size: 1rem;
+  border: 1px solid grey;
 }
 
 .container {
