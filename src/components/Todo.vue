@@ -1,5 +1,5 @@
 <template>
-  <div class="card" @click="onCardClicked">
+  <div class="card" :class="{ 'card-edit': editModeOn }" @click="onCardClicked">
     <p class="text">{{ item }}</p>
   </div>
 </template>
@@ -29,6 +29,10 @@ export default {
   border: 1px solid grey;
   background-color: antiquewhite;
   border-radius: 3px;
+}
+
+.card-edit {
+  background-color: rgb(255, 181, 84);
 }
 
 .text {
