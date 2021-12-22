@@ -2,7 +2,7 @@
   <h2 class="header">My Todos</h2>
   <div class="content">
     <EditTodo @add-save-button-clicked="onAddSaveButtonClick" item="" />
-    <TodoList :todos="todos" />
+    <TodoList :todos="todos" @todo-clicked="onTodoClicked" />
   </div>
 </template>
 
@@ -16,16 +16,19 @@ export default {
   data() {
     return {
       todos: [
-        { id: "111", item: "Go shopping" },
-        { id: "112", item: "Bake cake" },
-        { id: "113", item: "Wash dog in the outside bathroom without soap" },
+        { id: 111, item: "Go shopping", editModeOn: false },
+        { id: 112, item: "Bake cake", editModeOn: false },
+        {
+          id: 113,
+          item: "Wash dog in the outside bathroom without soap",
+          editModeOn: false,
+        },
       ],
     };
   },
   methods: {
     onAddSaveButtonClick(value) {
       const { id, input } = value;
-      console.log("item", input);
 
       if (id) {
         const newArray = this.todos.filter((todo) => todo.id !== id);
@@ -34,6 +37,24 @@ export default {
       } else {
         const maxId = Math.max(...this.todos.map((todo) => todo.id));
         this.todos.push({ id: maxId + 1, item: input });
+      }
+    },
+    onTodoClicked(value) {
+      const { id } = value;
+      if (id) {
+        const newArray = this.todos.map((todo) => {
+          if (todo.id === id) {
+            return {
+              ...todo,
+              editModeOn: true,
+            };
+          }
+          return {
+            ...todo,
+            editModeOn: false,
+          };
+        });
+        this.todos = newArray;
       }
     },
   },
