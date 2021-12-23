@@ -129,10 +129,6 @@ p {
   margin: 0;
 }
 
-button {
-  cursor: pointer;
-}
-
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

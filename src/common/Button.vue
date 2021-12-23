@@ -1,5 +1,10 @@
 <template>
-  <button class="button" @click="$emit('on-click')">
+  <button
+    class="button"
+    :class="{ disabled: disabled }"
+    @click="$emit('on-click')"
+    :disabled="disabled"
+  >
     {{ label }}
   </button>
 </template>
@@ -7,7 +12,7 @@
 <script>
 export default {
   name: "Button",
-  props: { label: String },
+  props: { label: String, disabled: Boolean },
   emits: ["on-click"],
 };
 </script>
@@ -19,5 +24,11 @@ export default {
   border-radius: 3px;
   font-size: 1rem;
   border: 1px solid grey;
+  cursor: pointer;
+}
+
+.disabled {
+  background-color: grey !important;
+  cursor: inherit !important;
 }
 </style>

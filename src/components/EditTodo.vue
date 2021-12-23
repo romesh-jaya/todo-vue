@@ -11,6 +11,7 @@
       class="button-save"
       @on-click="onAddSaveButtonClick"
       :label="todoToEdit ? 'Save' : 'Add'"
+      :disabled="(todoToEdit && !inputChanged) || (!todoToEdit && !input)"
     >
     </Button>
     <Button
@@ -36,6 +37,7 @@ export default defineComponent({
     return {
       input: "",
       error: "",
+      inputChanged: false,
     };
   },
   emits: ["on-add-save", "on-cancel-edit"],
@@ -51,10 +53,12 @@ export default defineComponent({
     onChangeInput(value: string) {
       this.input = value;
       this.error = "";
+      this.inputChanged = true;
     },
     resetForm() {
       this.error = "";
       this.input = "";
+      this.inputChanged = false;
     },
     onAddSaveButtonClick() {
       if (!this.input) {
