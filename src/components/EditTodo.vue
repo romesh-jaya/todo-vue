@@ -24,12 +24,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
+import { Todo } from "../types/Todo";
 import Button from "../common/Button.vue";
 
 export default defineComponent({
   name: "EditTodo",
-  props: { todoToEdit: Object },
+  props: { todoToEdit: Object as PropType<Todo> },
   components: { Button },
   data() {
     return {
@@ -41,7 +42,7 @@ export default defineComponent({
   watch: {
     todoToEdit() {
       if (this.todoToEdit) {
-        this.input = this.todoToEdit.item;
+        this.input = this.todoToEdit.item || "";
         this.error = "";
       }
     },

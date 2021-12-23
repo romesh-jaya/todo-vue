@@ -12,6 +12,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { Todo } from "./types/Todo";
 import TodoList from "./components/TodoList.vue";
 import EditTodo from "./components/EditTodo.vue";
 
@@ -28,8 +29,8 @@ export default defineComponent({
           item: "Wash dog in the outside bathroom without soap",
           editModeOn: false,
         },
-      ],
-      toDoInEditMode: null,
+      ] as Todo[],
+      toDoInEditMode: undefined as Todo | undefined,
     };
   },
   watch: {
@@ -38,7 +39,7 @@ export default defineComponent({
     },
   },
   methods: {
-    onAddSaveButtonClick(value) {
+    onAddSaveButtonClick(value: Todo) {
       const { id, item } = value;
 
       if (id) {
@@ -64,7 +65,7 @@ export default defineComponent({
         });
       }
     },
-    onCancelledEdit(value) {
+    onCancelledEdit(value: Todo) {
       const { id } = value;
 
       if (id) {
@@ -80,7 +81,7 @@ export default defineComponent({
         this.todos = newArray;
       }
     },
-    onTodoClicked(value) {
+    onTodoClicked(value: Todo) {
       const { id } = value;
       if (id) {
         const newArray = this.todos.map((todo) => {
