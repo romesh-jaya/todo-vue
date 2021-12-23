@@ -10,16 +10,12 @@
     <Button
       class="button-save"
       @on-click="onAddSaveButtonClick"
-      :label="todoToEdit ? 'Save' : 'Add'"
       :disabled="(todoToEdit && !inputChanged) || (!todoToEdit && !input)"
     >
+      {{ todoToEdit ? "Save" : "Add" }}
     </Button>
-    <Button
-      class="button-cancel"
-      @on-click="onCancelClick"
-      v-if="todoToEdit"
-      label="Cancel Edit"
-    >
+    <Button class="button-cancel" @on-click="onCancelClick" v-if="todoToEdit">
+      Cancel Edit
     </Button>
   </div>
 </template>

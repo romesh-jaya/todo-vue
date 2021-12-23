@@ -5,14 +5,14 @@
     @click="$emit('on-click')"
     :disabled="disabled"
   >
-    {{ label }}
+    <slot></slot>
   </button>
 </template>
 
 <script>
 export default {
   name: "Button",
-  props: { label: String, disabled: Boolean },
+  props: { disabled: Boolean },
   emits: ["on-click"],
 };
 </script>

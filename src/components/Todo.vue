@@ -10,25 +10,42 @@
     <div class="icon" @click="onDeleteClicked">
       <DeleteOutlined />
     </div>
+    <Modal v-if="showDeleteModal" @modal-close="showDeleteModal = false">
+      <!-- you can use custom content here to overwrite default content in Modal -->
+      <template v-slot:header>
+        <h3>Delete Todo</h3>
+      </template>
+      <template v-slot:body>
+        <p>Are you sure you wish to delete this Todo?</p>
+      </template>
+    </Modal>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import Modal from "../common/Modal.vue";
 import DeleteOutlined from "@ant-design/icons-vue/DeleteOutlined";
 
 export default defineComponent({
   name: "Todo",
   props: { item: String, id: Number, editModeOn: Boolean },
-  components: { DeleteOutlined },
+  components: { DeleteOutlined, Modal },
   emits: ["todo-clicked", "todo-delete-clicked"],
+  data() {
+    return {
+      showDeleteModal: false,
+    };
+  },
   methods: {
     onCardClicked() {
       this.$parent?.$emit("todo-clicked", {
         id: this.id,
       });
     },
-    onDeleteClicked() {},
+    onDeleteClicked() {
+      this.showDeleteModal = true;
+    },
   },
 });
 </script>
