@@ -10,7 +10,7 @@
     <Button
       class="button-save"
       @on-click="onAddSaveButtonClick"
-      :label="todoToEdit ? 'Edit' : 'Add'"
+      :label="todoToEdit ? 'Save' : 'Add'"
     >
     </Button>
     <Button
