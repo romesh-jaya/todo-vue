@@ -10,7 +10,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from "vue";
 import TodoList from "./components/TodoList.vue";
 import EditTodo from "./components/EditTodo.vue";
