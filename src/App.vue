@@ -11,10 +11,11 @@
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import TodoList from "./components/TodoList.vue";
 import EditTodo from "./components/EditTodo.vue";
 
-export default {
+export default defineComponent({
   name: "App",
   components: { TodoList, EditTodo },
   data() {
@@ -98,7 +99,7 @@ export default {
       }
     },
   },
-};
+});
 </script>
 
 <style>

@@ -23,10 +23,11 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from "vue";
 import Button from "../common/Button.vue";
 
-export default {
+export default defineComponent({
   name: "EditTodo",
   props: { todoToEdit: Object },
   components: { Button },
@@ -46,7 +47,7 @@ export default {
     },
   },
   methods: {
-    onChangeInput(value) {
+    onChangeInput(value: string) {
       this.input = value;
       this.error = "";
     },
@@ -74,7 +75,7 @@ export default {
       this.resetForm();
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

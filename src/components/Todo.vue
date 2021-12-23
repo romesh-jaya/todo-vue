@@ -4,19 +4,21 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: "Todo",
   props: { item: String, id: Number, editModeOn: Boolean },
   emits: ["todo-clicked"],
   methods: {
     onCardClicked() {
-      this.$parent.$emit("todo-clicked", {
+      this.$parent?.$emit("todo-clicked", {
         id: this.id,
       });
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

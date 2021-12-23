@@ -6,14 +6,15 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from "vue";
 import Todo from "./Todo.vue";
 
-export default {
+export default defineComponent({
   name: "TodoList",
   components: { Todo },
   props: { todos: Array },
-};
+});
 </script>
 
 <style scoped>
