@@ -1,8 +1,12 @@
 <template>
   <div class="container">
-    <div v-for="todo in todos" :key="todo.id">
-      <Todo :item="todo.item" :id="todo.id" :edit-mode-on="todo.editModeOn" />
-    </div>
+    <Todo
+      :item="todo.item"
+      :id="todo.id"
+      :edit-mode-on="todo.editModeOn"
+      v-for="todo in todos"
+      :key="todo.id"
+    />
   </div>
 </template>
 
