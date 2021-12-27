@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 import Button from "../common/Button.vue";
 
 export default {
@@ -6,8 +6,8 @@ export default {
   emits: ["modal-close"],
   components: { Button },
   methods: {
-    close() {
-      this.$emit("modal-close");
+    close(retVal?: boolean) {
+      this.$emit("modal-close", { retVal });
     },
   },
 };
@@ -39,7 +39,7 @@ export default {
         </section>
 
         <footer class="modal-footer">
-          <Button class="btn-yes" @on-click="close">Yes</Button>
+          <Button class="btn-yes" @on-click="close(true)">Yes</Button>
           <Button class="btn-no" @on-click="close">No</Button>
         </footer>
       </div>
@@ -94,15 +94,10 @@ export default {
 }
 
 .btn-close {
-  position: absolute;
-  top: 0;
-  right: 0;
   border: none;
   font-size: 20px;
   padding: 10px;
   cursor: pointer;
-  font-weight: bold;
-  color: $green;
   background: transparent;
 }
 

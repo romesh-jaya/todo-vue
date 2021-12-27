@@ -10,8 +10,7 @@
     <div class="icon" @click="onDeleteClicked">
       <DeleteOutlined />
     </div>
-    <Modal v-if="showDeleteModal" @modal-close="showDeleteModal = false">
-      <!-- you can use custom content here to overwrite default content in Modal -->
+    <Modal v-if="showDeleteModal" @modal-close="onModalClosed">
       <template v-slot:header>
         <h3>Delete Todo</h3>
       </template>
@@ -45,6 +44,15 @@ export default defineComponent({
     },
     onDeleteClicked() {
       this.showDeleteModal = true;
+    },
+    onModalClosed(value: { retVal: boolean }) {
+      const { retVal } = value;
+      this.showDeleteModal = false;
+      if (retVal) {
+        this.$parent?.$emit("todo-delete-clicked", {
+          id: this.id,
+        });
+      }
     },
   },
 });

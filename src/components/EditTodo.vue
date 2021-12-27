@@ -4,6 +4,7 @@
     <textarea
       class="input"
       :value="input"
+      @keydown.enter.prevent
       @input="onChangeInput($event.target.value)"
     ></textarea>
     <p class="error">{{ error }}</p>

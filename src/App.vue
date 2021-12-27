@@ -6,7 +6,11 @@
       @on-cancel-edit="onCancelledEdit"
       :todo-to-edit="toDoInEditMode"
     />
-    <TodoList :todos="todos" @todo-clicked="onTodoClicked" />
+    <TodoList
+      :todos="todos"
+      @todo-clicked="onTodoClicked"
+      @todo-delete-clicked="onTodoDeleteClicked"
+    />
   </div>
 </template>
 
@@ -78,6 +82,14 @@ export default defineComponent({
           }
           return todo;
         });
+        this.todos = newArray;
+      }
+    },
+    onTodoDeleteClicked(value: Todo) {
+      const { id } = value;
+
+      if (id) {
+        const newArray = this.todos.filter((todo) => todo.id !== id);
         this.todos = newArray;
       }
     },
