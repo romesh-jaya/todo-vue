@@ -1,16 +1,17 @@
 <script lang="ts">
+import { defineComponent } from "vue";
 import Button from "../common/Button.vue";
 
-export default {
+export default defineComponent({
   name: "Modal",
   emits: ["modal-close"],
   components: { Button },
   methods: {
-    close(retVal?: boolean) {
+    close(retVal: boolean) {
       this.$emit("modal-close", { retVal });
     },
   },
-};
+});
 </script>
 
 <template>
