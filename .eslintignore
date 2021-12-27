@@ -1,0 +1,13 @@
+// .eslintignore
+ 
+node_modules
+dist
+.git
+.eslintrc.js
+
+**/*.svg
+**/*.css
+**/*.scss
+**/*.json
+**/*.yml
+
